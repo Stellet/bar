@@ -10,16 +10,23 @@
 - Evitar formulários extensos.
 - O sistema deve aprimorar processos existentes, não obrigar equipes a abandonar práticas físicas úteis.
 - Comprovantes físicos continuam fazendo parte do fluxo.
+- Toda notinha representa um atendimento/venda registrado pelo vendedor, independentemente do meio de pagamento; lotes são agrupamentos físicos de notinhas, não formas de pagamento.
+- Valores de máquinas e dinheiro físico devem permanecer separados da contagem dos lotes de notinhas.
 - Contagens parciais são parte central do produto.
 - O fluxo principal é:
   Abrir → Lançar → Parcial → Lançar → Parcial → Fechar.
 - Uma operação pode possuir várias parciais.
+- Os produtos ativos de uma operação são definidos pela abertura: somente itens com estoque inicial maior que zero participam das rotinas operacionais.
+- O usuário responsável pela abertura e o operador atual são conceitos distintos e devem ser preservados separadamente.
+- A troca do operador atual deve exigir seleção e confirmação explícita, preservando a autoria dos registros anteriores.
+- Transferência é uma ação operacional própria, separada dos lançamentos rápidos.
 - Movimentações devem ser armazenadas como registros/eventos, não apenas modificando números consolidados.
 - Nesta versão, todos os dados são fictícios.
 - Nenhum dado real de cliente deve existir no repositório público.
 - Não implementar backend nesta fase.
 - Não implementar autenticação real nesta fase.
 - Não integrar meios de pagamento nesta fase.
+- Valores derivados de preços mockados devem ser identificados como estimativas, nunca como vendas conciliadas.
 - Não implementar previsão, analytics avançado ou dashboard nesta fase.
 - O protótipo deve poder ser publicado futuramente no GitHub Pages ou serviço semelhante.
 
@@ -31,8 +38,11 @@
 - Manter sempre visível ou facilmente identificável qual operação está aberta.
 - Evitar modais ou etapas desnecessárias.
 - Não esconder ações principais dentro de menus.
+- Exibir uma ação Voltar quando houver retorno lógico dentro do fluxo, preservando dados não confirmados sempre que possível.
 - Confirmações temporárias devem permitir desfazer ações recentes.
 - A contagem final deve inicialmente ser cega sempre que possível.
+- A parcial é um checkpoint neutro e deve mostrar estoque anterior, contagem atual e saída no período, sem indicar falta, sobra, diferença ou acerto.
+- Falta, sobra, esperado e diferença pertencem somente à conferência do fechamento final, após a contagem cega.
 - O usuário não deve precisar compreender a estrutura técnica para utilizar o sistema.
 
 # Regras Técnicas

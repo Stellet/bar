@@ -11,23 +11,23 @@ export const mockEvent: EventInfo = { id: 'event-demo', name: 'Noite Demo' };
 export const mockPointOfSale: PointOfSale = { id: 'pos-bar-principal', name: 'Bar Principal' };
 
 export const mockProducts: Product[] = [
-  { id: 'beer', name: 'Cerveja Lager', unit: 'garrafa' },
-  { id: 'water', name: 'Água', unit: 'garrafa' },
-  { id: 'soda', name: 'Refrigerante', unit: 'lata' },
-  { id: 'energy', name: 'Energético', unit: 'lata' },
-  { id: 'gin', name: 'Gin', unit: 'garrafa' },
-  { id: 'vodka', name: 'Vodka', unit: 'garrafa' },
+  { id: 'beer', name: 'Cerveja Lager', unit: 'garrafa', basePrice: 10 },
+  { id: 'water', name: 'Água', unit: 'garrafa', basePrice: 5 },
+  { id: 'soda', name: 'Refrigerante', unit: 'lata', basePrice: 7 },
+  { id: 'energy', name: 'Energético', unit: 'lata', basePrice: 12 },
+  { id: 'gin', name: 'Gin', unit: 'garrafa', basePrice: 18 },
+  { id: 'vodka', name: 'Vodka', unit: 'garrafa', basePrice: 18 },
 ];
 
 export const movementTypeLabels: Record<string, string> = {
   courtesy: 'Cortesia',
   damage: 'Dano / perda',
   restock: 'Reposição',
-  transfer_in: 'Transferência',
-  transfer_out: 'Transferência',
+  transfer_in: 'Recebimento',
+  transfer_out: 'Envio',
 };
 
-export const receiptSources = ['Máquina A', 'Máquina B', 'Máquina Cortesia', 'Dinheiro', 'Outro'];
+export const receiptSources = ['Não informada', 'Balcão A', 'Balcão B', 'Equipe volante', 'Outro'];
 
 export function createEmptyStock(): Record<string, number> {
   return Object.fromEntries(mockProducts.map((product) => [product.id, 0]));

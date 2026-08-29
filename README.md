@@ -4,7 +4,7 @@ Protótipo web mobile-first para simular operação operacional de bar e eventos
 
 ## Requisitos
 
-- Node.js 18+
+- Node.js 20.19+ ou 22.12+
 - npm
 
 ## Instalação

@@ -1,4 +1,4 @@
-import type { AppState } from '../types';
+import type { AppState, Operation } from '../types';
 
 const STORAGE_KEY = 'bar-operational-demo-v1';
 
@@ -20,7 +20,29 @@ export const storageService = {
       return {
         currentUserId: parsed.currentUserId ?? null,
         activeOperationId: parsed.activeOperationId ?? null,
-        operations: Array.isArray(parsed.operations) ? parsed.operations : [],
+        operations: Array.isArray(parsed.operations)
+          ? parsed.operations.map((operation) => ({
+              ...operation,
+              openedByUserId: operation.openedByUserId ?? (operation as Operation & { userId?: string }).userId ?? parsed.currentUserId ?? '',
+              currentOperatorUserId: operation.currentOperatorUserId ?? (operation as Operation & { userId?: string }).userId ?? parsed.currentUserId ?? '',
+              activeProductIds: Array.isArray(operation.activeProductIds)
+                ? operation.activeProductIds
+                : Object.entries(operation.initialStock ?? {}).filter(([, quantity]) => Number(quantity) > 0).map(([productId]) => productId),
+              partials: Array.isArray(operation.partials)
+                ? operation.partials.map((partial) => ({
+                    ...partial,
+                    userId: partial.userId ?? operation.currentOperatorUserId ?? (operation as Operation & { userId?: string }).userId ?? parsed.currentUserId ?? '',
+                  }))
+                : [],
+              receiptBatches: Array.isArray(operation.receiptBatches)
+                ? operation.receiptBatches.map((batch, index) => ({
+                    ...batch,
+                    period: batch.period ?? (batch.partialId ? 'partial' : 'final'),
+                    sequenceNumber: batch.sequenceNumber ?? index + 1,
+                  }))
+                : [],
+            }))
+          : [],
       };
     } catch {
       return defaultAppState;
