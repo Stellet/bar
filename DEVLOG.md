@@ -2,6 +2,7 @@
 
 ## Estado atual
 
+- Projeto configurado para publicação estática em `https://stellet.github.io/bar/` por GitHub Pages.
 - Projeto base em React + TypeScript + Vite configurado e operacional.
 - Fluxo principal do protótipo implementado: login fake, abertura de operação, lançamentos rápidos, parciais, fechamento de operação, conferência de lotes e resumo final.
 - Persistência em localStorage centralizada em um serviço dedicado.
@@ -10,6 +11,9 @@
 
 ## Últimas alterações
 
+- Configuração de `base: '/bar/'` no Vite, derivada do remote `https://github.com/Stellet/bar.git`.
+- Criação do workflow `.github/workflows/deploy.yml` para build e publicação automática de `dist/` no GitHub Pages em pushes para `main` ou execução manual.
+- Ajuste do favicon para usar `%BASE_URL%`, evitando caminho absoluto incompatível com a subpasta do GitHub Pages.
 - Correção conceitual da parcial: ela passou a ser tratada como checkpoint físico neutro, mostrando Estoque anterior, Contagem atual e Saída no período, sem esperado, diferença, falta, sobra ou indicação de acerto.
 - O fluxo da parcial foi ajustado para `Contagem → Notinhas → Financeiro/Resumo`.
 - Lotes agora representam somente grupos físicos sequenciais de notinhas, com origem operacional opcional, número de comprovantes, valor opcional, observação e horário automático.
@@ -45,6 +49,8 @@
 
 ## Decisões técnicas
 
+- O deploy usa apenas actions oficiais: `actions/checkout`, `actions/setup-node`, `actions/configure-pages`, `actions/upload-pages-artifact` e `actions/deploy-pages`.
+- O workflow usa Node.js 22, `npm ci` e `npm run build`, publicando exclusivamente o diretório `dist/`.
 - A saída do período de uma parcial usa o último estoque contado (ou o inicial), somado a reposições e entradas, descontadas transferências de saída e a contagem atual; o resultado é neutro e limitado ao mínimo zero.
 - Valores financeiros opcionais são armazenados separadamente em `FinancialSnapshot`; eles não alteram lotes nem representam conciliação com meios de pagamento.
 - `ReceiptBatch.sequenceNumber` identifica cada lote fisicamente, com migração automática para dados anteriores.
@@ -69,6 +75,10 @@
 
 ## Validação desta etapa
 
+- GitHub Pages: `npm run build` concluído com sucesso após configurar o base `/bar/`.
+- O `dist/index.html` gerado foi inspecionado e referencia favicon, JavaScript e CSS sob `/bar/`.
+- O preview de produção foi servido em `/bar/`; página, JavaScript, CSS e favicon responderam HTTP 200.
+- O remote configurado aponta para `Stellet/bar`; embora a configuração Git local ainda registre `master`, o workflow observa `main` conforme o fluxo de publicação solicitado.
 - Correção conceitual de parcial/notinhas: `npm run build` concluído com sucesso, sem erros TypeScript.
 - Auditoria textual confirmou ausência de Esperado, Diferença, Falta, Sobra e OK no fluxo da parcial; esses termos permanecem somente no fechamento final.
 - Verificado que “Dinheiro” não integra mais as origens de lotes e que todos os campos de contagem usam “Nº de comprovantes”.
