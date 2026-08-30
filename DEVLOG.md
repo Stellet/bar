@@ -12,7 +12,7 @@
 ## Últimas alterações
 
 - Configuração de `base: '/bar/'` no Vite, derivada do remote `https://github.com/Stellet/bar.git`.
-- Criação do workflow `.github/workflows/deploy.yml` para build e publicação automática de `dist/` no GitHub Pages em pushes para `main` ou execução manual.
+- Criação do workflow `.github/workflows/deploy.yml` para build e publicação automática de `dist/` no GitHub Pages em pushes para `master` ou execução manual.
 - Ajuste do favicon para usar `%BASE_URL%`, evitando caminho absoluto incompatível com a subpasta do GitHub Pages.
 - Correção conceitual da parcial: ela passou a ser tratada como checkpoint físico neutro, mostrando Estoque anterior, Contagem atual e Saída no período, sem esperado, diferença, falta, sobra ou indicação de acerto.
 - O fluxo da parcial foi ajustado para `Contagem → Notinhas → Financeiro/Resumo`.
@@ -78,7 +78,7 @@
 - GitHub Pages: `npm run build` concluído com sucesso após configurar o base `/bar/`.
 - O `dist/index.html` gerado foi inspecionado e referencia favicon, JavaScript e CSS sob `/bar/`.
 - O preview de produção foi servido em `/bar/`; página, JavaScript, CSS e favicon responderam HTTP 200.
-- O remote configurado aponta para `Stellet/bar`; embora a configuração Git local ainda registre `master`, o workflow observa `main` conforme o fluxo de publicação solicitado.
+- O remote configurado aponta para `Stellet/bar` e o workflow observa a branch atual `master`.
 - Correção conceitual de parcial/notinhas: `npm run build` concluído com sucesso, sem erros TypeScript.
 - Auditoria textual confirmou ausência de Esperado, Diferença, Falta, Sobra e OK no fluxo da parcial; esses termos permanecem somente no fechamento final.
 - Verificado que “Dinheiro” não integra mais as origens de lotes e que todos os campos de contagem usam “Nº de comprovantes”.
